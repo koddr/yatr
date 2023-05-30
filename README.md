@@ -11,6 +11,8 @@ you to organize and automate your routine operations that you normally do in
 `Makefile` (or else) for each project. Supports **all** popular formats (JSON, 
 YAML, TOML, HCL) of the task file and has a **beautiful** appearance.
 
+<img src="https://github.com/koddr/yatr/assets/11155743/502503f9-4a12-491c-b31d-6f362c292218" width="960" alt="img"/>
+
 ## ⚡️ Quick start
 
 First, [download][go_download] and install **Go**. Version `1.20` (or higher)
