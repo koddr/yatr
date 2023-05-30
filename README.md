@@ -2,7 +2,7 @@
 
 [![Go version][go_version_img]][yatr_go_dev_url]
 [![Go report][go_report_img]][go_report_url]
-![Code coverage][code_coverage_img]
+![Code coverage][go_code_coverage_img]
 [![Wiki][wiki_img]][wiki_url]
 [![License][license_img]][license_url]
 
@@ -26,13 +26,13 @@ go install github.com/koddr/yatr@latest
 
 Prepare your task file in one of the supported formats:
 
-- `json` – JSON ([docs][json_docs_url], [example][json_example_file])
-- `yaml` / `yml` – YAML ([docs][yaml_docs_url], [example][yaml_example_file])
-- `toml` – TOML ([docs][toml_docs_url], [example][toml_example_file])
-- `tf` – Terraform, HCL ([docs][tf_docs_url], [example][tf_example_file])
+- `json` – JSON ([example][json_example_file])
+- `yaml` / `yml` – YAML ([example][yaml_example_file])
+- `toml` – TOML ([example][toml_example_file])
+- `tf` – Terraform, HCL ([example][tf_example_file])
 
 > 💡 Note: See the repository's [Wiki page][wiki_url] to understand
-> structures of tasks file and get general recommendations.
+> structures of task file and get general recommendations.
 
 Next, run `yatr` with (_or without_) options:
 
@@ -40,7 +40,7 @@ Next, run `yatr` with (_or without_) options:
 yatr -p ./path/to/tasks-file.json
 ```
 
-Done! 🎉 Your tasks have been running.
+Done! 🎉 Your tasks have been executed.
 
 ## 🧩 Options
 
@@ -68,17 +68,13 @@ robots by [Vic Shóstak][author].
 [go_version_img]: https://img.shields.io/badge/Go-1.20+-00ADD8?style=for-the-badge&logo=go
 [go_report_img]: https://img.shields.io/badge/Go_report-A+-success?style=for-the-badge&logo=none
 [go_report_url]: https://goreportcard.com/report/github.com/koddr/yatr
-[code_coverage_img]: https://img.shields.io/badge/code_coverage-in_progress-success?style=for-the-badge&logo=none
+[go_code_coverage_img]: https://img.shields.io/badge/code_coverage-in_progress-success?style=for-the-badge&logo=none
 [wiki_img]: https://img.shields.io/badge/docs-wiki_page-blue?style=for-the-badge&logo=none
 [wiki_url]: https://github.com/koddr/yatr/wiki
 [wiki_tasks_file_url]: https://github.com/koddr/yatr/wiki#file-with-tasks
-[json_docs_url]: https://www.json.org/json-en.html
 [json_example_file]: https://github.com/koddr/yatr/blob/main/examples/tasks.json
-[yaml_docs_url]: https://yaml.org/
 [yaml_example_file]: https://github.com/koddr/yatr/blob/main/examples/tasks.yaml
-[toml_docs_url]: https://toml.io/en/
 [toml_example_file]: https://github.com/koddr/yatr/blob/main/examples/tasks.toml
-[tf_docs_url]: https://developer.hashicorp.com/terraform/language/syntax/configuration
 [tf_example_file]: https://github.com/koddr/yatr/blob/main/examples/tasks.tf
 [license_img]: https://img.shields.io/badge/license-Apache_2.0-red?style=for-the-badge&logo=none
 [license_url]: https://github.com/koddr/yatr/blob/main/LICENSE
