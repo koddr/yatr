@@ -14,9 +14,11 @@ var (
 	outputColor  = lipgloss.AdaptiveColor{Light: "#4b5563", Dark: "#9ca3af"}
 
 	// Set headers styles.
+	welcomeHeader = lipgloss.NewStyle().Foreground(outputColor).Margin(1, 0, 0).Bold(true)
 	successHeader = lipgloss.NewStyle().Foreground(successColor).Margin(0, 0, 1)
 	warningHeader = lipgloss.NewStyle().Foreground(warningColor).Margin(1, 0)
 	failHeader    = lipgloss.NewStyle().Foreground(failColor).Margin(1, 0)
+	doneHeader    = lipgloss.NewStyle().Foreground(outputColor).Margin(0, 0, 1).Bold(true)
 
 	// Set task info style.
 	taskInfo = lipgloss.NewStyle().Margin(0)

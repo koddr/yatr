@@ -34,11 +34,11 @@ func main() {
 	}
 
 	// Print the welcome message.
-	fmt.Println("Welcome to yatr (Yet Another Task Runner)! 👋")
+	printStyled("🏃 Welcome to yatr (Yet Another Task Runner)!", welcomeHeader)
 
 	// Print tasks info message.
 	printStyled(fmt.Sprintf(
-		"Running tasks set from %s [name: %s, description: %s]\n%d tasks in queues (async: %d, sequential: %d)... please wait!",
+		"Running tasks set from %s [name: %s, description: %s]\n%d tasks in queue (async: %d, sequential: %d)... please wait!",
 		*path, tt.Name, tt.Description, len(tt.Tasks), len(q.AsyncQueue), len(q.SequentialQueue),
 	), warningHeader)
 
@@ -49,8 +49,8 @@ func main() {
 	q.runTasks().render()
 
 	// Print the executing message.
-	fmt.Println(fmt.Sprintf(
-		"All done! 👌 Time spent executing all commands in %d tasks: %vs",
+	printStyled(fmt.Sprintf(
+		"🎉 Done! Time spent executing %d tasks: %vs",
 		len(tt.Tasks), time.Since(start).Seconds(),
-	))
+	), doneHeader)
 }

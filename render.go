@@ -7,7 +7,7 @@ func (r *Results) render() {
 	// Check, if success tasks queue have results.
 	if len(r.Success) > 0 {
 		// Print info message with count.
-		printStyled(fmt.Sprintf("Success commands (%d):", len(r.Success)), successHeader)
+		printStyled(fmt.Sprintf("Success tasks (%d):", len(r.Success)), successHeader)
 
 		// Loop for all success results.
 		for _, v := range r.Success {
@@ -22,7 +22,7 @@ func (r *Results) render() {
 	// Check, if fail tasks queue have results.
 	if len(r.Fail) > 0 {
 		// Print info message with count.
-		printStyled(fmt.Sprintf("Fail commands (%d):", len(r.Fail)), failHeader)
+		printStyled(fmt.Sprintf("Fail tasks (%d):", len(r.Fail)), failHeader)
 
 		// Loop for all fail results.
 		for _, v := range r.Fail {

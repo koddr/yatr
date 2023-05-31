@@ -24,12 +24,7 @@ type Tasks struct {
 
 // Task presents a struct for the single task.
 type Task struct {
-	IsAsync  bool      `koanf:"is_async"`
-	Commands []Command `koanf:"commands"`
-}
-
-// Command presents a struct for the single command.
-type Command struct {
+	IsAsync     bool     `koanf:"is_async"`
 	IsSudo      bool     `koanf:"is_sudo"`
 	Name        string   `koanf:"name"`
 	Description string   `koanf:"description"`
