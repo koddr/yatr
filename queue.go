@@ -28,26 +28,28 @@ func newQueue(tt *Tasks) (*Queue, error) {
 
 	// Set async and sequential tasks to separated slices.
 	for i, t := range tt.Tasks {
-		// Check, if the current task's command is set.
+		// Check, if the current task's command name is set.
 		if t.Name == "" {
 			// Return error with the current task index.
 			return nil, fmt.Errorf("error: task %d has no name, see: %s", i+1, WikiPageURL)
-			// Check, if the current task's command is set.
-		} else if t.Exec == nil || len(t.Exec) == 0 {
+		}
+
+		// Check, if the current task's command to execute is set.
+		if t.Exec == nil || len(t.Exec) == 0 {
 			// Return error with the current task name.
 			return nil, fmt.Errorf(
 				"error: task %d (name: '%s') has no commands to execute, see: %s",
 				i+1, t.Name, WikiPageURL,
 			)
+		}
+
+		// Check, if the current task is an async.
+		if t.IsAsync {
+			// Add async task to slice.
+			asyncTasks = append(asyncTasks, t)
 		} else {
-			// Check, if the current task is an async.
-			if t.IsAsync {
-				// Add async task to slice.
-				asyncTasks = append(asyncTasks, t)
-			} else {
-				// Add sequential task to slice.
-				sequentialTasks = append(sequentialTasks, t)
-			}
+			// Add sequential task to slice.
+			sequentialTasks = append(sequentialTasks, t)
 		}
 	}
 

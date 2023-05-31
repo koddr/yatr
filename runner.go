@@ -29,6 +29,14 @@ func (q *Queue) runTasks() (*Results, error) {
 	if len(q.AsyncQueue) > 0 {
 		// Loop for the all tasks in the async queue.
 		for _, t := range q.AsyncQueue {
+			// Check, if current task have commands to execute.
+			if t.Exec == nil || len(t.Exec) == 0 {
+				return nil, fmt.Errorf(
+					"error: not possible to run tasks without any commands to execute, see: %s",
+					WikiPageURL,
+				)
+			}
+
 			// Add 1 to the wait group.
 			wg.Add(1)
 
@@ -73,6 +81,14 @@ func (q *Queue) runTasks() (*Results, error) {
 	if len(q.SequentialQueue) > 0 {
 		// Loop for the all tasks in the sequential queue.
 		for _, t := range q.SequentialQueue {
+			// Check, if current task have commands to execute.
+			if t.Exec == nil || len(t.Exec) == 0 {
+				return nil, fmt.Errorf(
+					"error: not possible to run tasks without any commands to execute, see: %s",
+					WikiPageURL,
+				)
+			}
+
 			// Add 1 to the wait group.
 			wg.Add(1)
 
