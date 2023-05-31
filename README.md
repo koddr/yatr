@@ -8,8 +8,14 @@
 
 **Y**et **A**nother **T**ask **R**unner (or `yatr` for a short) allows 
 you to organize and automate your routine operations that you normally do in 
-`Makefile` (or else) for each project. Supports **all** popular formats (JSON, 
-YAML, TOML, HCL) of the task file and has a **beautiful** appearance.
+`Makefile` (or else) for each project.
+
+Features:
+
+- 100% **free** and **open source**
+- can run any task in **async** mode (in separated goroutines)
+- supports **popular** formats of the task file (JSON, YAML, TOML, HCL)
+- has a **beautiful** appearance and **understandable** output
 
 <img src="https://github.com/koddr/yatr/assets/11155743/502503f9-4a12-491c-b31d-6f362c292218" width="960" alt="img"/>
 
