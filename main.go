@@ -22,6 +22,7 @@ func main() {
 	// Parse all tasks from the given file.
 	tt, err := newParser(path, k)
 	if err != nil {
+		// Print error message and exit.
 		printStyled(fmt.Sprintf("%s %v", failMark, err.Error()), failHeader)
 		os.Exit(0)
 	}
@@ -29,6 +30,7 @@ func main() {
 	// Create a new queue for async and sequential tasks.
 	q, err := newQueue(tt)
 	if err != nil {
+		// Print error message and exit.
 		printStyled(fmt.Sprintf("%s %v", failMark, err.Error()), failHeader)
 		os.Exit(0)
 	}
@@ -45,8 +47,20 @@ func main() {
 	// Start timer.
 	start := time.Now()
 
-	// Run all tasks and print results.
-	q.runTasks().render()
+	// Run all tasks.
+	results, err := q.runTasks()
+	if err != nil {
+		// Print error message and exit.
+		printStyled(fmt.Sprintf("%s %v", failMark, err.Error()), failHeader)
+		os.Exit(0)
+	}
+
+	// Print results.
+	if err = results.render(); err != nil {
+		// Print error message and exit.
+		printStyled(fmt.Sprintf("%s %v", failMark, err.Error()), failHeader)
+		os.Exit(0)
+	}
 
 	// Print the executing message.
 	printStyled(fmt.Sprintf(

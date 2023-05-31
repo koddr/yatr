@@ -3,8 +3,16 @@ package main
 import "fmt"
 
 // render provides the rendering process for results.
-func (r *Results) render() {
-	// Check, if success tasks queue have results.
+func (r *Results) render() error {
+	// Check, if success and sequential queue have tasks.
+	if r.Success == nil && r.Fail == nil {
+		return fmt.Errorf(
+			"error: not possible to show results without any tasks, see: %s",
+			WikiPageURL,
+		)
+	}
+
+	// Check, if success queue have tasks.
 	if len(r.Success) > 0 {
 		// Print info message with count.
 		printStyled(fmt.Sprintf("Success tasks (%d):", len(r.Success)), successHeader)
@@ -19,7 +27,7 @@ func (r *Results) render() {
 		}
 	}
 
-	// Check, if fail tasks queue have results.
+	// Check, if fail queue have tasks.
 	if len(r.Fail) > 0 {
 		// Print info message with count.
 		printStyled(fmt.Sprintf("Fail tasks (%d):", len(r.Fail)), failHeader)
@@ -36,4 +44,6 @@ func (r *Results) render() {
 			printStyled(v.Output, outputMessage)
 		}
 	}
+
+	return nil
 }

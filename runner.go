@@ -9,7 +9,15 @@ import (
 )
 
 // runTasks provides the running tasks process.
-func (q *Queue) runTasks() *Results {
+func (q *Queue) runTasks() (*Results, error) {
+	// Check, if success and sequential queue have tasks.
+	if q.AsyncQueue == nil && q.SequentialQueue == nil {
+		return nil, fmt.Errorf(
+			"error: not possible to run tasks without any tasks, see: %s",
+			WikiPageURL,
+		)
+	}
+
 	// Create a new slices for success and fail results.
 	successResults := make([]Result, 0)
 	failResults := make([]Result, 0)
@@ -102,5 +110,5 @@ func (q *Queue) runTasks() *Results {
 	// Blocks all goroutines and wait the running commands.
 	wg.Wait()
 
-	return &Results{Success: successResults, Fail: failResults}
+	return &Results{Success: successResults, Fail: failResults}, nil
 }

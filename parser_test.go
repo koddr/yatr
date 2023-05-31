@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"testing"
 
 	"github.com/knadh/koanf/v2"
@@ -9,27 +10,57 @@ import (
 )
 
 func Test_newParser(t *testing.T) {
-	p := ""
-	pJson := "./examples/tasks.json"
-	pYaml := "./examples/tasks.yaml"
-	pToml := "./examples/tasks.toml"
-	pHcl := "./examples/tasks.tf"
 	k := koanf.New(".")
 
+	p := ""
 	_, err := newParser(&p, k)
 	require.Error(t, err)
 
+	_ = os.WriteFile("./bin/error.json", []byte("error"), 0x0755)
+	_ = os.WriteFile("./bin/error.yaml", []byte("error"), 0x0755)
+	_ = os.WriteFile("./bin/error.toml", []byte("error"), 0x0755)
+	_ = os.WriteFile("./bin/error.tf", []byte("error"), 0x0755)
+
+	eJson := "./bin/error.json"
+	_, err = newParser(&eJson, k)
+	require.Error(t, err)
+
+	eYaml := "./bin/error.yaml"
+	_, err = newParser(&eYaml, k)
+	require.Error(t, err)
+
+	eToml := "./bin/error.toml"
+	_, err = newParser(&eToml, k)
+	require.Error(t, err)
+
+	eHcl := "./bin/error.tf"
+	_, err = newParser(&eHcl, k)
+	require.Error(t, err)
+
+	_ = os.RemoveAll(eJson)
+	_ = os.RemoveAll(eYaml)
+	_ = os.RemoveAll(eToml)
+	_ = os.RemoveAll(eHcl)
+
+	pJson := "./examples/tasks.json"
 	_, err = newParser(&pJson, k)
 	require.NoError(t, err)
 
+	pYaml := "./examples/tasks.yaml"
 	_, err = newParser(&pYaml, k)
 	require.NoError(t, err)
 
+	pToml := "./examples/tasks.toml"
 	_, err = newParser(&pToml, k)
 	require.NoError(t, err)
 
+	pHcl := "./examples/tasks.tf"
 	_, err = newParser(&pHcl, k)
 	require.NoError(t, err)
+
+	pUnknown := "./examples/tasks.exe"
+	_, err = newParser(&pUnknown, k)
+	require.Error(t, err)
 
 	tasks := Tasks{
 		Name:        "My tasks set",
