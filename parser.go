@@ -27,25 +27,25 @@ func newParser(p *string, k *koanf.Koanf) (*Tasks, error) {
 	case "json":
 		// Load JSON parser.
 		if err := k.Load(file.Provider(*p), json.Parser()); err != nil {
-			return nil, err
+			return nil, errors.New("error: not valid structure of the JSON file, see: https://github.com/koddr/wiki")
 		}
 	case "yaml", "yml":
 		// Load YAML parser.
 		if err := k.Load(file.Provider(*p), yaml.Parser()); err != nil {
-			return nil, err
+			return nil, errors.New("error: not valid structure of the YAML file, see: https://github.com/koddr/wiki")
 		}
 	case "toml":
 		// Load TOML parser.
 		if err := k.Load(file.Provider(*p), toml.Parser()); err != nil {
-			return nil, err
+			return nil, errors.New("error: not valid structure of the TOML file, see: https://github.com/koddr/wiki")
 		}
 	case "tf":
 		// Load HCL (Terraform) parser.
 		if err := k.Load(file.Provider(*p), hcl.Parser(true)); err != nil {
-			return nil, err
+			return nil, errors.New("error: not valid structure of the HCL file, see: https://github.com/koddr/wiki")
 		}
 	default:
-		return nil, errors.New("parsing error: unknown format of tasks file")
+		return nil, errors.New("error: unknown format of tasks file, see: https://github.com/koddr/wiki")
 	}
 
 	// Create a new tasks set.
