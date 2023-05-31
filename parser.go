@@ -1,7 +1,7 @@
 package main
 
 import (
-	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/knadh/koanf/parsers/hcl"
@@ -19,7 +19,7 @@ func newParser(p *string, k *koanf.Koanf) (*Tasks, error) {
 
 	// Check, if the file name is too short.
 	if len(parserFormat) < 2 {
-		return nil, errors.New("parsing error: invalid format of tasks file")
+		return nil, fmt.Errorf("parsing error: invalid format of tasks file, see: %s", WikiPageURL)
 	}
 
 	// Load task set by format's parser.
@@ -27,25 +27,25 @@ func newParser(p *string, k *koanf.Koanf) (*Tasks, error) {
 	case "json":
 		// Load JSON parser.
 		if err := k.Load(file.Provider(*p), json.Parser()); err != nil {
-			return nil, errors.New("error: not valid structure of the JSON file, see: https://github.com/koddr/wiki")
+			return nil, fmt.Errorf("error: not valid structure of the JSON file, see: %s", WikiPageURL)
 		}
 	case "yaml", "yml":
 		// Load YAML parser.
 		if err := k.Load(file.Provider(*p), yaml.Parser()); err != nil {
-			return nil, errors.New("error: not valid structure of the YAML file, see: https://github.com/koddr/wiki")
+			return nil, fmt.Errorf("error: not valid structure of the YAML file, see: %s", WikiPageURL)
 		}
 	case "toml":
 		// Load TOML parser.
 		if err := k.Load(file.Provider(*p), toml.Parser()); err != nil {
-			return nil, errors.New("error: not valid structure of the TOML file, see: https://github.com/koddr/wiki")
+			return nil, fmt.Errorf("error: not valid structure of the TOML file, see: %s", WikiPageURL)
 		}
 	case "tf":
 		// Load HCL (Terraform) parser.
 		if err := k.Load(file.Provider(*p), hcl.Parser(true)); err != nil {
-			return nil, errors.New("error: not valid structure of the HCL file, see: https://github.com/koddr/wiki")
+			return nil, fmt.Errorf("error: not valid structure of the HCL file, see: %s", WikiPageURL)
 		}
 	default:
-		return nil, errors.New("error: unknown format of tasks file, see: https://github.com/koddr/wiki")
+		return nil, fmt.Errorf("error: unknown format of tasks file, see: %s", WikiPageURL)
 	}
 
 	// Create a new tasks set.

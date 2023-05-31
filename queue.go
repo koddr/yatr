@@ -1,15 +1,25 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 )
 
 // newQueue provides the queueing process.
 func newQueue(tt *Tasks) (*Queue, error) {
+	// Check, if task set name is existed.
+	if tt.Name == "" {
+		return nil, fmt.Errorf(
+			"error: not possible to create a new queue without a task set name, see: %s",
+			WikiPageURL,
+		)
+	}
+
 	// Check, if tasks are existed and greater than zero.
 	if tt.Tasks == nil || len(tt.Tasks) == 0 {
-		return nil, errors.New("error: can't create a new queue without any tasks")
+		return nil, fmt.Errorf(
+			"error: not possible to create a new queue without any tasks, see: %s",
+			WikiPageURL,
+		)
 	}
 
 	// Create slices for tasks queue.
@@ -21,11 +31,14 @@ func newQueue(tt *Tasks) (*Queue, error) {
 		// Check, if the current task's command is set.
 		if t.Name == "" {
 			// Return error with the current task index.
-			return nil, fmt.Errorf("error: task %d has no name", i+1)
+			return nil, fmt.Errorf("error: task %d has no name, see: %s", i+1, WikiPageURL)
 			// Check, if the current task's command is set.
 		} else if t.Exec == nil || len(t.Exec) == 0 {
 			// Return error with the current task name.
-			return nil, fmt.Errorf("error: task %d (name: '%s') has no commands to execute", i+1, t.Name)
+			return nil, fmt.Errorf(
+				"error: task %d (name: '%s') has no commands to execute, see: %s",
+				i+1, t.Name, WikiPageURL,
+			)
 		} else {
 			// Check, if the current task is an async.
 			if t.IsAsync {

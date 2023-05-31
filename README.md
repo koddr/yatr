@@ -37,8 +37,8 @@ Prepare your task file in one of the supported formats:
 - `toml` – TOML ([example][toml_example_file])
 - `tf` – Terraform, HCL ([example][tf_example_file])
 
-> 💡 Note: See the repository's [Wiki page][wiki_url] to understand
-> structures of task file and get general recommendations.
+> 💡 Note: See the repository's [Wiki page][wiki_url] to understand 
+> structure of the task file.
 
 Next, run `yatr` with (_or without_) options:
 
