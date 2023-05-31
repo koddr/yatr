@@ -17,7 +17,7 @@ Features:
 - supports **popular** formats of the task file (JSON, YAML, TOML, HCL)
 - has a **beautiful** appearance and **understandable** output
 
-<img src="https://github.com/koddr/yatr/assets/11155743/502503f9-4a12-491c-b31d-6f362c292218" width="960" alt="img"/>
+<img src="https://github.com/koddr/yatr/assets/11155743/28c87af5-9a04-4761-a8d8-21db42bb62fd" width="960" alt="img"/>
 
 ## ⚡️ Quick start
 
