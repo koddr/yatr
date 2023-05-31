@@ -74,7 +74,7 @@ robots by [Vic Shóstak][author].
 [go_version_img]: https://img.shields.io/badge/Go-1.20+-00ADD8?style=for-the-badge&logo=go
 [go_report_img]: https://img.shields.io/badge/Go_report-A+-success?style=for-the-badge&logo=none
 [go_report_url]: https://goreportcard.com/report/github.com/koddr/yatr
-[go_code_coverage_img]: https://img.shields.io/badge/code_coverage-78%25-success?style=for-the-badge&logo=none
+[go_code_coverage_img]: https://img.shields.io/badge/code_coverage-79%25-success?style=for-the-badge&logo=none
 [wiki_img]: https://img.shields.io/badge/docs-wiki_page-blue?style=for-the-badge&logo=none
 [wiki_url]: https://github.com/koddr/yatr/wiki
 [wiki_tasks_file_url]: https://github.com/koddr/yatr/wiki#file-with-tasks
