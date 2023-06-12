@@ -26,8 +26,8 @@ github.com/knadh/koanf/providers/file v0.1.0 h1:fs6U7nrV58d3CFAFh8VTde8TM262ObYf
 github.com/knadh/koanf/providers/file v0.1.0/go.mod h1:rjJ/nHQl64iYCtAW2QQnF0eSmDEX/YZ/eNFj5yR6BvA=
 github.com/knadh/koanf/v2 v2.0.1 h1:1dYGITt1I23x8cfx8ZnldtezdyaZtfAuRtIFOiRzK7g=
 github.com/knadh/koanf/v2 v2.0.1/go.mod h1:ZeiIlIDXTE7w1lMT6UVcNiRAS2/rCeLn/GdLNvY1Dus=
-github.com/koddr/gosl v1.1.0 h1:IKjTQHingVBSI4Eesz539xfvmwBwJP6Xfx9+41Ulw1A=
-github.com/koddr/gosl v1.1.0/go.mod h1:oDEyjDZzwbXKSMUJ752wofenJHKKSsaQfxxEvXWVyiI=
+github.com/koddr/gosl v1.2.0 h1:JE+NnnO9CEzNuQP/rkDTP1T3D9oAWmil8StOY7f8r3s=
+github.com/koddr/gosl v1.2.0/go.mod h1:5qzYRgimE97cd0CHEk14bEZs08jzzdMpdLCSQUtKYvI=
 github.com/lucasb-eyer/go-colorful v1.2.0 h1:1nnpGOrhyZZuNyfu1QjKiUICQ74+3FNCN69Aj6K7nkY=
 github.com/lucasb-eyer/go-colorful v1.2.0/go.mod h1:R4dSotOR9KMtayYi1e77YzuveK+i7ruzyGqttikkLy0=
 github.com/mattn/go-isatty v0.0.18 h1:DOKFKCQ7FNG2L1rbrmstDN4QVRdS89Nkh85u68Uwp98=
