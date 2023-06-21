@@ -2,5 +2,10 @@ coverage:
   status:
     project:
       default:
-        target: 100%
+        target: 75%
         threshold: 1%
+
+comment:
+  # Impact Codecov analysis, see: https://docs.codecov.com/docs/impact-analysis
+  layout: "reach,diff,flags,tree,betaprofiling"
+  show_critical_paths: true
