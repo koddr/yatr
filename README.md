@@ -17,8 +17,6 @@ Features:
 - Supports **popular** formats of the task file (JSON, YAML, TOML, HCL).
 - Has a **beautiful** appearance and **understandable** output.
 
-<img src="https://github.com/koddr/yatr/assets/11155743/28c87af5-9a04-4761-a8d8-21db42bb62fd" width="960" alt="img"/>
-
 ## ⚡️ Quick start
 
 First, [download][go_download] and install **Go**. Version `1.20` (or higher)
@@ -43,20 +41,24 @@ brew tap koddr/tap
 brew install koddr/tap/yatr
 ```
 
-Prepare your task file in one of the supported formats:
+Next, run `yatr` with `-i` option to generate initial `tasks.yml` file in the current dir:
 
-- JSON ([example][json_example_file])
-- YAML ([example][yaml_example_file])
-- TOML ([example][toml_example_file])
-- HCL/Terraform ([example][tf_example_file])
+```console
+yatr -i
+```
+
+Prepare your task file in one of the supported formats: JSON 
+([example][json_example_file]), YAML ([example][yaml_example_file]), 
+TOML ([example][toml_example_file]), HCL/Terraform 
+([example][tf_example_file]).
 
 > 💡 Note: See the repository's [Wiki page][wiki_url] to understand 
 > structure of the task file.
 
-Next, run `yatr` with (_or without_) options:
+And now, run `yatr` with options:
 
 ```console
-yatr -p ./path/to/tasks.yaml
+yatr -p ./path/to/tasks.yml
 ```
 
 Done! 🎉 Your tasks have been executed.
@@ -73,9 +75,10 @@ docker run --rm -it -v ${PWD}:${PWD} -w ${PWD} koddr/yatr:latest [OPTIONS]
 
 ## 🧩 Options
 
-| Option | Description                                                                                  | Is required? | Type     | Default value  |
-|--------|----------------------------------------------------------------------------------------------|--------------|----------|----------------|
-| `-p`   | set a **path** to the file with tasks in any of the supporting format (see [Wiki][wiki_url]) | no           | `string` | `./tasks.yaml` |
+| Option | Description                                                                                  | Is required? | Type     | Default value |
+|--------|----------------------------------------------------------------------------------------------|--------------|----------|---------------|
+| `-i`   | generate an example `tasks.yml` file in the given format                                     | no           | `bool`   | `false`       |
+| `-p`   | set a **path** to the file with tasks in any of the supporting format (see [Wiki][wiki_url]) | yes          | `string` | `""`          |
 
 ## 🏆 A win-win cooperation
 
