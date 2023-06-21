@@ -8,6 +8,7 @@ before:
   hooks:
     - go mod download
     - go mod tidy
+    - go run github.com/google/wire/cmd/wire@latest
     - go run github.com/securego/gosec/v2/cmd/gosec@latest -exclude=G204 -quiet ./...
     - go run github.com/go-critic/go-critic/cmd/gocritic@latest check -enableAll ./...
 
@@ -95,13 +96,17 @@ brews:
     commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
     folder: Formula
     caveats: |
-      After install yatr, prepare your task file in one of the supported formats: JSON, YAML, TOML, or HCL (Terraform).
+      After install, run yatr with -i option for generate initial tasks.yml file in the current dir:
+  
+      $ yatr -i
+      
+      Prepare your task file in one of the supported formats: JSON, YAML, TOML, or HCL (Terraform).
       
       💡 Note: See the repository's Wiki page (https://github.com/koddr/yatr/wiki) to understand structure of the task file.
     
-      Next, run yatr with (or without) options:
+      And now, run yatr with options:
       
-      $ yatr -p ./path/to/tasks.yaml
+      $ yatr -p ./path/to/tasks.yml
       
       Done! Your tasks have been executed.
     homepage: "https://github.com/koddr/{{ .ProjectName }}"

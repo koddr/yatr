@@ -5,7 +5,8 @@
 *.so
 *.dylib
 
-# Test binary, built with `go test -c`
+# Test folder and binary, built with `go test -c`
+tests/
 *.test
 
 # Output of the go coverage tool, specifically when used with LiteIDE
@@ -26,3 +27,9 @@ vendor/
 
 # Binary directories
 bin/
+
+# Goreleaser directories
+dist/
+
+# Generate files
+*_gen.go

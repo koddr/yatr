@@ -2,7 +2,6 @@
 
 [![Go version][go_version_img]][go_dev_url]
 [![Go report][go_report_img]][go_report_url]
-![Code coverage][go_code_coverage_img]
 [![Wiki][wiki_img]][wiki_url]
 [![License][license_img]][license_url]
 
