@@ -1,32 +1,34 @@
 package main
 
-// Queue presents a struct for the queue for async and sequential tasks.
-type Queue struct {
-	AsyncQueue, SequentialQueue []Task
+// App represents a struct for the application instance.
+type App struct {
+	Tasks  *Tasks
+	Queues *Queues
 }
 
-// Results present a struct for success and fail results.
-type Results struct {
-	Success, Fail []Result
+// Tasks represents a struct for tasks set.
+type Tasks struct {
+	Name        string  `koanf:"name"`
+	Description string  `koanf:"description"`
+	Data        []*Task `koanf:"tasks"`
 }
 
-// Result presents struct for the single result.
+// Task represents a struct for the single task.
+type Task struct {
+	IsAsync       bool     `koanf:"is_async"`
+	IsSudo        bool     `koanf:"is_sudo"`
+	IsPrintOutput bool     `koanf:"is_print_output"`
+	Name          string   `koanf:"name"`
+	Description   string   `koanf:"description"`
+	Exec          []string `koanf:"exec"`
+}
+
+// Queues represents a struct for async and sequential tasks.
+type Queues struct {
+	Async, Sequential []*Task
+}
+
+// Result represents a struct for the single result.
 type Result struct {
 	ID, Name, Description, Output string
-}
-
-// Tasks present a struct for tasks set.
-type Tasks struct {
-	Name        string `koanf:"name"`
-	Description string `koanf:"description"`
-	Tasks       []Task `koanf:"tasks"`
-}
-
-// Task presents a struct for the single task.
-type Task struct {
-	IsAsync     bool     `koanf:"is_async"`
-	IsSudo      bool     `koanf:"is_sudo"`
-	Name        string   `koanf:"name"`
-	Description string   `koanf:"description"`
-	Exec        []string `koanf:"exec"`
 }

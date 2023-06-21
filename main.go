@@ -4,67 +4,47 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"time"
-
-	"github.com/knadh/koanf/v2"
+	"path/filepath"
 )
 
 func main() {
 	// Set flags.
-	path := flag.String("p", "./tasks.json", "set a path of the tasks file")
+	flag.BoolVar(&initFlag, "i", false, "generate an example 'tasks.yml' file in the given format")
+	flag.StringVar(&pathFlag, "p", "", "set a path to the tasks file")
 
 	// Parse all flags.
 	flag.Parse()
 
-	// Create the koanf instance for a root path.
-	k := koanf.New(".")
+	if initFlag {
+		// Create the tasks file with the given format in the current dir.
+		if err := os.WriteFile(filepath.Clean("./tasks.yml"), embedYAMLTasksFile, 0o600); err != nil {
+			printStyled(
+				fmt.Sprintf("There was an error with generating example tasks file: %v", err),
+				"error",
+				"",
+			)
+			os.Exit(0)
+		}
+	} else {
+		// App initialization.
+		app, err := initialize()
+		if err != nil {
+			printStyled(
+				fmt.Sprintf("There was an error with initialize app: %v", err),
+				"error",
+				"",
+			)
+			os.Exit(0)
+		}
 
-	// Parse all tasks from the given file.
-	tt, err := newParser(path, k)
-	if err != nil {
-		// Print error message and exit.
-		printStyled(fmt.Sprintf("%s %v", failMark, err.Error()), failHeader)
-		os.Exit(0)
+		// App start.
+		if err = app.start(); err != nil {
+			printStyled(
+				fmt.Sprintf("There was an error with starting app: %v", err),
+				"error",
+				"",
+			)
+			os.Exit(0)
+		}
 	}
-
-	// Create a new queue for async and sequential tasks.
-	q, err := newQueue(tt)
-	if err != nil {
-		// Print error message and exit.
-		printStyled(fmt.Sprintf("%s %v", failMark, err.Error()), failHeader)
-		os.Exit(0)
-	}
-
-	// Print the welcome message.
-	printStyled("🏃 Welcome to yatr (Yet Another Task Runner)!", welcomeHeader)
-
-	// Print tasks info message.
-	printStyled(fmt.Sprintf(
-		"Running tasks set from %s [name: %s, description: %s]\n%d tasks in queue (async: %d, sequential: %d)... please wait!",
-		*path, tt.Name, tt.Description, len(tt.Tasks), len(q.AsyncQueue), len(q.SequentialQueue),
-	), warningHeader)
-
-	// Start timer.
-	start := time.Now()
-
-	// Run all tasks.
-	results, err := q.runTasks()
-	if err != nil {
-		// Print error message and exit.
-		printStyled(fmt.Sprintf("%s %v", failMark, err.Error()), failHeader)
-		os.Exit(0)
-	}
-
-	// Print results.
-	if err = results.render(); err != nil {
-		// Print error message and exit.
-		printStyled(fmt.Sprintf("%s %v", failMark, err.Error()), failHeader)
-		os.Exit(0)
-	}
-
-	// Print the executing message.
-	printStyled(fmt.Sprintf(
-		"🎉 Done! Time spent executing %d tasks: %vs",
-		len(tt.Tasks), time.Since(start).Seconds(),
-	), doneHeader)
 }
