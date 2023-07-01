@@ -17,7 +17,7 @@ func newTasks() (*Tasks, error) {
 	tasks := &Tasks{}
 
 	// Load config from path or HTTP by the given file format.
-	_, err := gosl.ParseFileWithEnvToStruct(pathFlag, "YATR", tasks)
+	_, err := gosl.ParseFileToStruct(pathFlag, tasks)
 	if err != nil {
 		return nil, err
 	}
