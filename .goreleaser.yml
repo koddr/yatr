@@ -147,7 +147,7 @@ nix:
     homepage: 'https://github.com/koddr/{{ .ProjectName }}'
     description: |
       Yet Another Task Runner (or yatr for a short) allows you to organize and automate your routine operations that you normally do in Makefile (or else) for each project.
-    license: 'asl20'
+    license: asl20
     skip_upload: false
     repository:
       owner: koddr
