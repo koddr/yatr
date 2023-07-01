@@ -1,3 +1,3 @@
 FROM scratch
-ENTRYPOINT ["/yatr"]
 COPY yatr /
+ENTRYPOINT ["/yatr"]
