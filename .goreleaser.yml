@@ -155,6 +155,7 @@ nix:
       token: '{{ .Env.GITHUB_TOKEN }}'
       pull_request:
         enabled: true
+        draft: true
       git:
         url: 'git@github.com:koddr/nur.git'
         private_key: '{{ .Env.NIX_PRIVATE_KEY_PATH }}'
