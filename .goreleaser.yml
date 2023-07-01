@@ -156,7 +156,7 @@ nix:
       pull_request:
         enabled: true
       git:
-        url: 'git@github.com:koddr/nur.git'
+        url: 'ssh://git@github.com:koddr/nur.git'
         private_key: '{{ .Env.NIX_PRIVATE_KEY_PATH }}'
 
 nfpms:
