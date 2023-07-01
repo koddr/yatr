@@ -11,19 +11,14 @@ before:
     - go run github.com/google/wire/cmd/wire@latest
     - go run github.com/securego/gosec/v2/cmd/gosec@latest -exclude=G204 -quiet ./...
     - go run github.com/go-critic/go-critic/cmd/gocritic@latest check -enableAll ./...
+    - go run github.com/google/osv-scanner/cmd/osv-scanner@latest -r .
+    - go test -race ./...
 
 builds:
   -
     id: default
     env: [ CGO_ENABLED=0 ]
-    goos: [ linux, windows ]
-    goarch: [ amd64, arm64 ]
-#    skip: true # useful for library projects
-
-  - # HACK for macOS Ventura (13.x), which not supported UPX
-    id: macOS_only
-    env: [ CGO_ENABLED=0 ]
-    goos: [ darwin ]
+    goos: [ linux, windows, darwin ]
     goarch: [ amd64, arm64 ]
 
 upx:
@@ -33,14 +28,14 @@ upx:
     compress: best
     lzma: true
     brute: true
-#    goos: [ darwin ] # wait for v1.19
+    goos: [ linux, windows ] # skip darwin (macOS 13.x Ventura is not supported now)
+    goarch: [ amd64, arm64 ]
 
 release:
-  ids: [ default, macOS_only ]
+  ids: [ default ]
   draft: true
   replace_existing_draft: true
-  target_commitish: "{{ .Commit }}"
-  #  discussion_category_name: General
+  target_commitish: '{{ .Commit }}'
   prerelease: auto
   mode: replace
   header: |
@@ -57,6 +52,13 @@ release:
     For [Homebrew][brew_url] users (GNU/Linux, macOS):
     
     ```console
+    # Tap a new formula:
+    brew tap koddr/tap
+    
+    # Installation:
+    brew install koddr/tap/yatr
+    
+    # Upgrade to the latest:
     brew upgrade koddr/tap/yatr
     ```
     
@@ -77,23 +79,42 @@ release:
   disable: false
   skip_upload: false
 
+dockers:
+  -
+    id: '{{ .ProjectName }}'
+    ids: [ default ]
+    image_templates:
+      - 'koddr/{{ .ProjectName }}:latest'
+      - 'koddr/{{ .ProjectName }}:{{ .Tag }}'
+      - 'koddr/{{ .ProjectName }}:v{{ .Major }}'
+      - 'koddr/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}'
+    build_flag_templates:
+      - '--pull'
+      - '--label=org.opencontainers.image.created={{ .Date }}'
+      - '--label=org.opencontainers.image.title={{ .ProjectName }}'
+      - '--label=org.opencontainers.image.revision={{ .FullCommit }}'
+      - '--label=org.opencontainers.image.version={{ .Version }}'
+      - '--platform=linux/amd64'
+    skip_push: false
+    push_flags:
+      - '--tls-verify=false'
+
 brews:
   -
-    tap:
+    repository:
       owner: koddr
       name: homebrew-tap
       branch: main
-      token: "{{ .Env.GITHUB_TOKEN }}"
+      token: '{{ .Env.GITHUB_TOKEN }}'
       pull_request:
         enabled: true
-#        draft: true # wait for v1.19
       git:
-        url: "git@github.com:koddr/homebrew-tap.git"
-        private_key: "{{ .Env.PRIVATE_KEY_PATH }}"
+        url: 'git@github.com:koddr/homebrew-tap.git'
+        private_key: '{{ .Env.BREW_PRIVATE_KEY_PATH }}'
     commit_author:
       name: Vic Shóstak
       email: koddr.me@gmail.com
-    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+    commit_msg_template: 'Brew formula update for {{ .ProjectName }} version {{ .Tag }}'
     folder: Formula
     caveats: |
       After install, run yatr with -i option for generate initial tasks.yml file in the current dir:
@@ -109,43 +130,43 @@ brews:
       $ yatr -p ./path/to/tasks.yml
       
       Done! Your tasks have been executed.
-    homepage: "https://github.com/koddr/{{ .ProjectName }}"
+    homepage: 'https://github.com/koddr/{{ .ProjectName }}'
     description: |
       Yet Another Task Runner (or yatr for a short) allows you to organize and automate your routine operations that you normally do in Makefile (or else) for each project.
     license: Apache 2.0
     skip_upload: false
-#    dependencies:
-#      - name: git
 
-dockers:
+nix:
   -
-    id: "{{ .ProjectName }}"
-    ids: [ default ]
-    image_templates:
-      - "koddr/{{ .ProjectName }}:latest"
-      - "koddr/{{ .ProjectName }}:{{ .Tag }}"
-      - "koddr/{{ .ProjectName }}:v{{ .Major }}"
-      - "koddr/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}"
-    build_flag_templates:
-      - "--pull"
-      - "--label=org.opencontainers.image.created={{ .Date }}"
-      - "--label=org.opencontainers.image.title={{ .ProjectName }}"
-      - "--label=org.opencontainers.image.revision={{ .FullCommit }}"
-      - "--label=org.opencontainers.image.version={{ .Version }}"
-      - "--platform=linux/amd64"
-    skip_push: false
-    push_flags:
-      - --tls-verify=false
+    name: '{{ .ProjectName }}'
+    commit_author:
+      name: Vic Shóstak
+      email: koddr.me@gmail.com
+    commit_msg_template: 'Nix package update for {{ .ProjectName }} version {{ .Tag }}'
+    homepage: 'https://github.com/koddr/{{ .ProjectName }}'
+    description: |
+      Yet Another Task Runner (or yatr for a short) allows you to organize and automate your routine operations that you normally do in Makefile (or else) for each project.
+    license: Apache 2.0
+    skip_upload: false
+    repository:
+      owner: koddr
+      name: 'nixpkg-{{ .ProjectName }}'
+      branch: main
+      token: '{{ .Env.GITHUB_TOKEN }}'
+      pull_request:
+        enabled: true
+      git:
+        url: 'git@github.com:koddr/nixpkg-{{ .ProjectName }}.git'
+        private_key: '{{ .Env.NIX_PRIVATE_KEY_PATH }}'
 
 nfpms:
   -
     maintainer: Vic Shóstak <koddr.me@gmail.com>
     description: |
       Yet Another Task Runner (or yatr for a short) allows you to organize and automate your routine operations that you normally do in Makefile (or else) for each project.
-    homepage: "https://github.com/koddr/{{ .ProjectName }}"
+    homepage: 'https://github.com/koddr/{{ .ProjectName }}'
     license: Apache 2.0
     formats: [ deb, rpm, apk, archlinux ]
-#    dependencies: [ git ]
 
 archives:
   -
@@ -153,17 +174,15 @@ archives:
       - goos: windows
         format: zip
     files: [ LICENSE, README.md ]
-    rlcp: true
 
 checksum:
-  name_template: "checksums.txt"
+  name_template: 'checksums.txt'
 
 changelog:
-#  use: github
   sort: asc
   abbrev: -1
   filters:
-    exclude: [ "^*.md:", "^*.yml:" ]
+    exclude: [ '^*.md', '^*.ya?ml' ]
   groups:
     - title: Features
       regexp: ^.*?(F|f)eature.*?$
