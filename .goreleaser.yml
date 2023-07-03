@@ -137,30 +137,6 @@ brews:
     license: Apache 2.0
     skip_upload: false
 
-nix:
-  -
-    name: '{{ .ProjectName }}'
-    commit_author:
-      name: Vic Shóstak
-      email: koddr.me@gmail.com
-    commit_msg_template: 'Nix package update for {{ .ProjectName }} version {{ .Tag }}'
-    homepage: 'https://github.com/koddr/{{ .ProjectName }}'
-    description: |
-      Yet Another Task Runner (or yatr for a short) allows you to organize and automate your routine operations that you normally do in Makefile (or else) for each project.
-    license: asl20
-    skip_upload: false
-    repository:
-      owner: koddr
-      name: nur
-      branch: main
-      token: '{{ .Env.GITHUB_TOKEN }}'
-      pull_request:
-        enabled: true
-        draft: true
-      git:
-        url: 'git@github.com:koddr/nur.git'
-        private_key: '{{ .Env.NIX_PRIVATE_KEY_PATH }}'
-
 nfpms:
   -
     maintainer: Vic Shóstak <koddr.me@gmail.com>
